@@ -4,15 +4,19 @@ using UnityEngine;
 
 public class LevelGenerator : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private List<LevelPrefab> _levelPrefabs;
+    [SerializeField] private Transform _spawnPoint;
+    [SerializeField] private Transform _finishTransform;
 
-    // Update is called once per frame
-    void Update()
+    public void GenerateLevel(int levelLength)
     {
-        
+        for (int i = 0; i < levelLength; i++)
+        {
+            LevelPrefab lastInstance = Instantiate(_levelPrefabs[Random.Range(0, _levelPrefabs.Count )],
+                new Vector2(_spawnPoint.position.x, _spawnPoint.position.y), new Quaternion());
+            _spawnPoint.position = new Vector2(lastInstance.SpawnPoint.position.x, lastInstance.SpawnPoint.position.y);
+            lastInstance.HideSomeObjects();
+        }
+        _finishTransform.position = new Vector2(_spawnPoint.position.x, _spawnPoint.position.y+5);
     }
 }

@@ -4,15 +4,16 @@ using UnityEngine;
 
 public class LevelPrefab : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField] private Transform spawnPoint;
+    [SerializeField] private List<GameObject> objects;
 
-    // Update is called once per frame
-    void Update()
+    public Transform SpawnPoint => spawnPoint; 
+
+    public void HideSomeObjects()
     {
-        
+        for(int i = 0; i < Random.Range(2, transform.childCount); i++)
+        {
+            objects[Random.Range(0, objects.Count-1)].gameObject.SetActive(false);
+        }
     }
 }
